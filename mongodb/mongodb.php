@@ -69,7 +69,6 @@ foreach ($cursor as $document) {
 }
 
 $user = $db->users->findOne(array('name'=>'zhangsan'), array('age'=>false));
-// dump($user);
 
 
 // 查询 like
@@ -101,7 +100,7 @@ $user = $db->users->findOne(array('age' => array('$lte' => 20)));
 $where = array('$or' => array( array('age'=>20), array('age'=>21) ));
 $cursor = $db->users->find($where);
 
-// Find where name='杜甫' AND age=21
+// Find where name='杜甫' AND age=21，注意：这里是 '$and'=> array(array(), array()), 不是 '$and'=> array(?, ?), 很容易没注意
 $where = array('$and' => array( array('name'=>'杜甫'), array('age'=>21) ));
 $cursor = $db->users->find($where);
 foreach ($cursor as $document) {
