@@ -62,6 +62,10 @@ if($cursor->count()){
         // dump($document);
     }
 }
+// This returns a MongoCursor. Often, when people are starting out, they are more comfortable using an array. 
+// To turn a cursor into an array, use the iterator_to_array() function.
+$array = iterator_to_array($cursor);
+
 
 $cursor = $db->users->find(array('name'=>'zhangsan'));
 foreach ($cursor as $document) {
