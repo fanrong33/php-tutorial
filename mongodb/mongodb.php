@@ -115,7 +115,7 @@ foreach ($cursor as $document) {
 
 // 更新数据
 $where = array('name' => '杜甫');
-$update = array('$set' => array('age' => 25));
+$update = array('$set' => array('age' => 25)); # 千万注意：这里是有$set的！！！
 $response = $db->users->update($where, $update, array('upsert'=>true, 'multiple'=>false));
 // dump($response);
 /*
