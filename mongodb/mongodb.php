@@ -1,13 +1,20 @@
 <?php
+/**
+ * @version 1.0.5 build 20170129
+ */
 header('Content-Type:text/html; charset=utf-8');
 
 // 在php中使用mongodb你必须使用 mongodb 的 php驱动。
 // * [MongoDB PHP](http://www.runoob.com/mongodb/mongodb-php.html)
 // * [MongoClient 类](http://php.net/manual/zh/class.mongoclient.php)
+// * [SQL 到 Mongo 的对应表](http://php.net/manual/zh/mongo.sqltomongo.php)
 
 // 连接mongodb
 // $mongo = new MongoClient('mongodb://[username:password@]localhost:27017'); // 连接默认主机和端口为：mongodb://localhost:27017
 $mongo = new MongoClient('mongodb://localhost:27017');
+$dbs = $mongo->listDBs();
+print_r($dbs);
+
 $db = $mongo->test; // 获取名称为 "test" 的数据库 public MongoCollection __get ( string $name )
 
 
@@ -76,20 +83,20 @@ $user = $db->users->findOne(array('name'=>'zhangsan'), array('age'=>false));
 
 
 // 查询 like
-// $cursor = $db->users->find(array('name'=>'zhang%'));
-// foreach ($cursor as $document) {
-//     dump($document);
-// }
+$db->users->find(array("name" => new MongoRegex("/Joe/")));
+// 相当于 SELECT * FROM users WHERE name LIKE "%Joe%"
+
+$db->users->find(array("name" => new MongoRegex("/^Joe/")));
+// 相当于 SELECT * FROM users WHERE name LIKE "Joe%"
+
 
 
 // 条件操作符
 // Find where age != 20
 $user = $db->users->findOne(array('age' => array('$ne' => 20)));
-// dump($user);
 
 // Find where age > 20
 $user = $db->users->findOne(array('age' => array('$gt' => 20)));
-// dump($user);
 
 // Find where age >= 20
 $user = $db->users->findOne(array('age' => array('$gte' => 20)));
