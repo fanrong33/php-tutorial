@@ -39,6 +39,14 @@ array(3) {
 dump((string)$data['_id']);
 // 5a8fe1c43b4db970350041a7
 
+// 通过_id修改字段数据
+$insert_id = (string)$data['_id'];
+$where  = array('_id' => new MongoId($insert_id));
+$update = array('$set' => array('age'=>25));
+$response = $db->users->update($where, $update);
+dump($response);
+
+
 // 插入多条
 $users = array(
     array('name'=>'李白', 'age'=>20),
