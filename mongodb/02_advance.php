@@ -23,6 +23,22 @@ $response = $db->users->drop();
 
 
 // 插入数据
+// 打印最新生成的 _id field
+$data = array('name'=>'白居易', 'age'=>23);
+$response = $db->users->insert($data);
+dump($data);
+/*
+array(3) {
+  ["name"] => string(9) "白居易"
+  ["age"] => int(23)
+  ["_id"] => object(MongoId)#4 (1) {
+    ["$id"] => string(24) "5a8fe1c43b4db970350041a7"
+  }
+}
+*/
+dump((string)$data['_id']);
+// 5a8fe1c43b4db970350041a7
+
 // 插入多条
 $users = array(
     array('name'=>'李白', 'age'=>20),
