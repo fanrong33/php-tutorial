@@ -1,6 +1,6 @@
 <?php
 /**
- * @version 1.0.0 build 20180223
+ * @version 1.0.1 build 20180301
  */
 header('Content-Type:text/html; charset=utf-8');
 
@@ -39,7 +39,7 @@ array(3) {
 dump((string)$data['_id']);
 // 5a8fe1c43b4db970350041a7
 
-// 通过_id修改字段数据
+// 通过_id修改字段数据, new MongoId
 $insert_id = (string)$data['_id'];
 $where  = array('_id' => new MongoId($insert_id));
 $update = array('$set' => array('age'=>25));
@@ -64,44 +64,6 @@ array(6) {
   ["err"] => NULL
 }*/
 
-
-
-// 查询数据
-// 查询 like
-$db->users->find(array("name" => new MongoRegex("/Joe/")));
-// 相当于 SELECT * FROM users WHERE name LIKE "%Joe%"
-
-$db->users->find(array("name" => new MongoRegex("/^Joe/")));
-// 相当于 SELECT * FROM users WHERE name LIKE "Joe%"
-
-
-
-// 条件操作符
-// Find where age != 20
-$user = $db->users->findOne(array('age' => array('$ne' => 20)));
-
-// Find where age > 20
-$user = $db->users->findOne(array('age' => array('$gt' => 20)));
-
-// Find where age >= 20
-$user = $db->users->findOne(array('age' => array('$gte' => 20)));
-
-// Find where age < 20
-$user = $db->users->findOne(array('age' => array('$lt' => 20)));
-
-// Find where age < 20
-$user = $db->users->findOne(array('age' => array('$lte' => 20)));
-
-// Find where age=20 or age=21
-$where = array('$or' => array( array('age'=>20), array('age'=>21) ));
-$cursor = $db->users->find($where);
-
-// Find where name='杜甫' AND age=21，注意：这里是 '$and'=> array(array(), array()), 不是 '$and'=> array(?, ?), 很容易没注意
-$where = array('$and' => array( array('name'=>'杜甫'), array('age'=>21) ));
-$cursor = $db->users->find($where);
-foreach ($cursor as $document) {
-    // dump($document);
-}
 
 
 
