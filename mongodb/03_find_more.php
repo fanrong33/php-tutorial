@@ -24,7 +24,7 @@ $db->users->find(array("name" => new MongoRegex("/^Joe/")));
 // 相当于 SELECT * FROM users WHERE name LIKE "Joe%"
 
 // 查询 not like
-$db->users->findOne(array("name" => array( '$nin'=> array( new MongoRegex("/Joe/") ) ) ));
+$db->users->find(array("name" => array( '$nin'=> array( new MongoRegex("/Joe/") ) ) ));
 // 相当于 SELECT * FROM users WHERE name NOT LIKE "%Joe%"
 
 
