@@ -1,6 +1,6 @@
 <?php
 /**
- * @version 1.0.0 build 20180301
+ * @version 1.0.1 build 20180409
  * TODO
  * [mongo-查询（2）——比较/$in/$nin/$or/$not](https://www.cnblogs.com/yuechaotian/archive/2013/02/04/2891506.html)
  */
@@ -23,6 +23,9 @@ $db->users->find(array("name" => new MongoRegex("/Joe/")));
 $db->users->find(array("name" => new MongoRegex("/^Joe/")));
 // 相当于 SELECT * FROM users WHERE name LIKE "Joe%"
 
+// 查询 not like
+$db->users->findOne(array("name" => array( '$nin'=> array( new MongoRegex("/Joe/") ) ) ));
+// 相当于 SELECT * FROM users WHERE name NOT LIKE "%Joe%"
 
 
 // 条件操作符 > $gt, >= $get, < $lt, <= $lte, != $ne
