@@ -16,8 +16,8 @@ $db = $mongo->test; // 获取名称为 "test" 的数据库 public MongoCollectio
 
 
 // 查询数据
-// 查询 like
-$db->users->find(array("name" => new MongoRegex("/Joe/")));
+// 查询 like, 注意大小写敏感
+$user = $db->users->find(array("name" => new MongoRegex("/Joe/")));
 // 相当于 SELECT * FROM users WHERE name LIKE "%Joe%"
 
 $db->users->find(array("name" => new MongoRegex("/^Joe/")));
