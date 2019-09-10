@@ -54,6 +54,12 @@ foreach ($cursor as $document) {
     // dump($document);
 }
 
+
+// 按age字段升序排序。1为升序，-1为降序。
+// $cursor = $db->find()->sort(array('age' => 1));
+// skip() limit()
+
+
 $user = $db->users->findOne(array('name'=>'zhangsan'), array('age'=>false));
 
 
